@@ -1,6 +1,5 @@
+import controller.AccountController;
 import controller.TransactionController;
-import model.Account;
-import service.AccountService;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -24,16 +23,7 @@ public class UIMenu {
         int customerId = scanner.nextInt();
         System.out.println("Enter the balance: ");
         int balance = scanner.nextInt();
-        String nextAccountNumber = nextAccountNumber();
-        Account account = new Account(0, customerId, nextAccountNumber, balance);
-        AccountService.addAccount(account);
-        System.out.println("New account added, the acount number is: " + nextAccountNumber);
-    }
-
-
-    public static String nextAccountNumber() throws SQLException {
-        String maxAccountNumber = AccountService.fetchLastAccountNumber();
-        return String.valueOf(Integer.parseInt(maxAccountNumber) + 1);
+        AccountController.createNewAccount(customerId, balance);
     }
 
     public static void deposit(Scanner scanner) throws SQLException {
@@ -66,7 +56,7 @@ public class UIMenu {
         System.out.println("Enter your account number: ");
         scanner.nextLine();
         String accountNumber = scanner.nextLine();
-        AccountService.deleteAccount(accountNumber);
+        AccountController.deleteAccount(accountNumber);
     }
 
 }
