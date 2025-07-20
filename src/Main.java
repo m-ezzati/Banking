@@ -5,19 +5,25 @@ import service.AccountService;
 import service.TransactionService;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     TransactionController transactionController;
     public static void main(String[] args) throws SQLException {
-        Account account = new Account(0,1,"1236",1000);
-        AccountService.addAccount(account);
-//        TransactionController.deposit(1200,"1234");
-//        TransactionController.withdraw(800,"1234");
-//        TransactionController.transfer(1000,"1234","1235");
-    }
-    public void showMenu(){
-        System.out.println("Choose on Option:");
-        System.out.println("1- Add new Account");
-        System.out.println("2- ");
+        boolean showMenu = true;
+        Scanner scanner = new Scanner(System.in);
+        while (showMenu){
+            UIMenu.showMenu();
+            int option = scanner.nextInt();
+            switch (option){
+                case 1 -> UIMenu.addNewAccount(scanner);
+                case 2 -> UIMenu.deposit(scanner);
+                case 3 -> UIMenu.withdraw(scanner);
+                case 4 -> UIMenu.transfer(scanner);
+                case 5 -> UIMenu.deleteAccount(scanner);
+                case 6 -> showMenu = false;
+            }
+        }
+
     }
 }

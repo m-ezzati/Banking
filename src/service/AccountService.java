@@ -16,10 +16,9 @@ public class AccountService {
         stmt.setString(2, account.getAccountNumber());
         stmt.setInt(3, account.getBalance());
         stmt.executeUpdate();
-        System.out.println("New account added");
     }
 
-    public static void updateAccountBalance(Integer accountId , Integer newBalance) throws SQLException {
+    public static void updateAccountBalance(Integer accountId, Integer newBalance) throws SQLException {
         Connection connection = DBConnection.getConnection();
         String sql = "update account set balance = ? where id = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -29,26 +28,43 @@ public class AccountService {
         System.out.println("The balance is up to date!");
     }
 
-    public void deleteAccount(){
+    public static void deleteAccount(String accountNumber) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        String sql = "delete from account where account_number = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, accountNumber);
+        int result = stmt.executeUpdate();
+        if(result>0){
+            System.out.println("Your account with account number "+ accountNumber + " deleted");
+        }else {
+            System.out.println("Account with this account number is not exists!");
+        }
 
     }
 
-    public static Account fetchAccount(String accountNumber) throws SQLException {
+    public static String fetchLastAccountNumber() throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        String sql = "select Max(account_number) from account";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sql);
+        if (result.next()) {
+            return result.getObject(1).toString();
+        }
+        return "12345";
 
+    }
+    public static Account fetchAccount(String accountNumber) throws SQLException {
         Connection connection = DBConnection.getConnection();
         String sql = "select * from account where account_number = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, accountNumber);
         ResultSet result = stmt.executeQuery();
-        ResultSetMetaData metaData = result.getMetaData();
-//        System.out.println("metaData.getColumnName"+ result.next());
-        if(result.next()){
-            System.out.println("if");
+        if (result.next()) {
             Integer accountId = (Integer) result.getObject("id");
             Integer customerId = (Integer) result.getObject("customer_id");
             Integer balance = (Integer) result.getObject("balance");
-            return new Account(accountId, customerId ,accountNumber, balance);
-        }else {
+            return new Account(accountId, customerId, accountNumber, balance);
+        } else {
             System.out.println("The Account not found");
             return null;
         }
