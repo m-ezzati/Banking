@@ -51,8 +51,8 @@ public class AccountService {
             return result.getObject(1).toString();
         }
         return "12345";
-
     }
+
     public static Account fetchAccount(String accountNumber) throws SQLException {
         Connection connection = DBConnection.getConnection();
         String sql = "select * from account where account_number = ?";

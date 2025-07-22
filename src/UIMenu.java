@@ -28,6 +28,7 @@ public class UIMenu {
 
     public static void deposit(Scanner scanner) throws SQLException {
         System.out.println("Enter your account number: ");
+        scanner.nextLine();
         String accountNumber = scanner.nextLine();
         System.out.println("Enter the amount: ");
         int amount = scanner.nextInt();
@@ -36,6 +37,7 @@ public class UIMenu {
 
     public static void withdraw(Scanner scanner) throws SQLException {
         System.out.println("Enter your account number: ");
+        scanner.nextLine();
         String accountNumber = scanner.nextLine();
         System.out.println("Enter the amount: ");
         int amount = scanner.nextInt();
@@ -44,6 +46,7 @@ public class UIMenu {
 
     public static void transfer(Scanner scanner) throws SQLException {
         System.out.println("Enter your source account number: ");
+        scanner.nextLine();
         String sourceAccountNumber = scanner.nextLine();
         System.out.println("Enter your destination account number: ");
         String destinationAccountNumber = scanner.nextLine();

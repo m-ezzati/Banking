@@ -16,7 +16,7 @@ public class TransactionService {
         stmt.setInt(1, transaction.getId());
         stmt.setString(2, transaction.getType());
         stmt.setInt(3, transaction.getAmount());
-        stmt.setDate(4, (Date) transaction.getDate());
+        stmt.setDate(4, transaction.getDate());
         stmt.setString(5, transaction.getDetails());
         stmt.executeUpdate();
         System.out.println("New transaction added");

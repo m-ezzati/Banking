@@ -1,14 +1,10 @@
-import controller.AccountController;
 import controller.TransactionController;
-import model.Account;
-import service.AccountService;
-import service.TransactionService;
+
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    TransactionController transactionController;
     public static void main(String[] args) throws SQLException {
         boolean showMenu = true;
         Scanner scanner = new Scanner(System.in);
